@@ -1,0 +1,66 @@
+import { AlphaCard, Page, Layout, SkeletonBodyText } from "@shopify/polaris";
+import { Loading, TitleBar } from "@shopify/app-bridge-react";
+import { QRCodeForm } from "../../components";
+
+export default function QRCodeEdit() {
+  const breadcrumbs = [{ content: "QR codes", url: "/" }];
+
+  /*
+     These are mock values.
+     Set isLoading to false to preview the page without loading markup.
+  */
+  const isLoading = true;
+  const isRefetching = false;
+  const QRCode = {
+    createdAt: "2022-06-13",
+    destination: "checkout",
+    title: "My first QR code",
+    product: {},
+  };
+
+  /* Loading action and markup that uses App Bridge and Polaris components */
+  if (isLoading || isRefetching) {
+    return (
+      <Page>
+        <TitleBar
+          title="Edit QR code"
+          breadcrumbs={breadcrumbs}
+          primaryAction={null}
+        />
+        <Loading />
+        <Layout>
+          <Layout.Section>
+            <AlphaCard sectioned title="Title">
+              <SkeletonBodyText />
+            </AlphaCard>
+            <AlphaCard title="Product">
+              <AlphaCard.Section>
+                <SkeletonBodyText lines={1} />
+              </AlphaCard.Section>
+              <AlphaCard.Section>
+                <SkeletonBodyText lines={3} />
+              </AlphaCard.Section>
+            </AlphaCard>
+            <AlphaCard sectioned title="Discount">
+              <SkeletonBodyText lines={2} />
+            </AlphaCard>
+          </Layout.Section>
+          <Layout.Section secondary>
+            <AlphaCard sectioned title="QR code" />
+          </Layout.Section>
+        </Layout>
+      </Page>
+    );
+  }
+
+  return (
+    <Page>
+      <TitleBar
+        title="Edit QR code"
+        breadcrumbs={breadcrumbs}
+        primaryAction={null}
+      />
+      <QRCodeForm QRCode={QRCode} />
+    </Page>
+  );
+}
