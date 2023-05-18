@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, TextContainer, Text } from "@shopify/polaris";
+import { AlphaCard, VerticalStack, Text } from "@shopify/polaris";
 import { Toast } from "@shopify/app-bridge-react";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 
@@ -46,7 +46,7 @@ export function ProductsCard() {
   return (
     <>
       {toastMarkup}
-      <Card
+      <AlphaCard
         title="Product Counter"
         sectioned
         primaryFooterAction={{
@@ -55,7 +55,7 @@ export function ProductsCard() {
           loading: isLoading,
         }}
       >
-        <TextContainer spacing="loose">
+        <VerticalStack spacing="loose">
           <p>
             Sample products are created with a default title and price. You can
             remove them at any time.
@@ -66,8 +66,8 @@ export function ProductsCard() {
               {isLoadingCount ? "-" : data.count}
             </Text>
           </Text>
-        </TextContainer>
-      </Card>
+        </VerticalStack>
+      </AlphaCard>
     </>
   );
 }
