@@ -1,10 +1,10 @@
 import { useNavigate } from "@shopify/app-bridge-react";
 import {
-  Card,
+  AlphaCard,
   Icon,
   IndexTable,
-  Stack,
-  TextStyle,
+  VerticalStack,
+  Text,
   Thumbnail,
   UnstyledLink,
 } from "@shopify/polaris";
@@ -31,39 +31,37 @@ function SmallScreenCard({
       <div
         style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #E1E3E5" }}
       >
-        <Stack>
-          <Stack.Item>
+        <VerticalStack>
+          <VerticalStack.Item>
             <Thumbnail
               source={product?.images?.edges[0]?.node?.url || ImageMajor}
               alt="placeholder"
               color="base"
               size="small"
             />
-          </Stack.Item>
-          <Stack.Item fill>
-            <Stack vertical={true}>
-              <Stack.Item>
+          </VerticalStack.Item>
+          <VerticalStack.Item fill>
+            <VerticalStack vertical={true}>
+              <VerticalStack.Item>
                 <p>
-                  <TextStyle variation="strong">
-                    {truncate(title, 35)}
-                  </TextStyle>
+                  <Text variation="strong">{truncate(title, 35)}</Text>
                 </p>
                 <p>{truncate(product?.title, 35)}</p>
                 <p>{dayjs(createdAt).format("MMMM D, YYYY")}</p>
-              </Stack.Item>
+              </VerticalStack.Item>
               <div style={{ display: "flex" }}>
                 <div style={{ flex: "3" }}>
-                  <TextStyle variation="subdued">Discount</TextStyle>
+                  <Text variation="subdued">Discount</Text>
                   <p>{discountCode || "-"}</p>
                 </div>
                 <div style={{ flex: "2" }}>
-                  <TextStyle variation="subdued">Scans</TextStyle>
+                  <Text variation="subdued">Scans</Text>
                   <p>{scans}</p>
                 </div>
               </div>
-            </Stack>
-          </Stack.Item>
-        </Stack>
+            </VerticalStack>
+          </VerticalStack.Item>
+        </VerticalStack>
       </div>
     </UnstyledLink>
   );
@@ -113,14 +111,14 @@ export function QRCodeIndex({ QRCodes, loading }) {
             </UnstyledLink>
           </IndexTable.Cell>
           <IndexTable.Cell>
-            <Stack>
+            <VerticalStack>
               {deletedProduct && (
                 <Icon source={DiamondAlertMajor} color="critical" />
               )}
-              <TextStyle variation={deletedProduct ? "negative" : null}>
+              <Text variation={deletedProduct ? "negative" : null}>
                 {truncate(product?.title, 25)}
-              </TextStyle>
-            </Stack>
+              </Text>
+            </VerticalStack>
           </IndexTable.Cell>
           <IndexTable.Cell>{discountCode}</IndexTable.Cell>
           <IndexTable.Cell>
@@ -134,7 +132,7 @@ export function QRCodeIndex({ QRCodes, loading }) {
 
   /* A layout for small screens, built using Polaris components */
   return (
-    <Card>
+    <AlphaCard>
       {isSmallScreen ? (
         smallScreenMarkup
       ) : (
@@ -155,7 +153,7 @@ export function QRCodeIndex({ QRCodes, loading }) {
           {rowMarkup}
         </IndexTable>
       )}
-    </Card>
+    </AlphaCard>
   );
 }
 
