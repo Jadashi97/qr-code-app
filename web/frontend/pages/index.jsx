@@ -1,12 +1,13 @@
 import { useNavigate, TitleBar, Loading } from "@shopify/app-bridge-react";
 import {
-  AlphaCard,
+  Card,
   EmptyState,
   Layout,
   Page,
   SkeletonBodyText,
 } from "@shopify/polaris";
 import { QRCodeIndex } from "../components";
+import { useAppQuery } from "../hooks";
 
 export default function HomePage() {
   /*
@@ -16,42 +17,22 @@ export default function HomePage() {
   */
   const navigate = useNavigate();
 
-  /*
-    These are mock values. Setting these values lets you preview the loading markup and the empty state.
-  */
-  const isLoading = false;
-  const isRefetching = false;
-  const QRCodes = [
-    {
-      createdAt: "2022-06-13",
-      destination: "checkout",
-      title: "My first QR code",
-      id: 1,
-      discountCode: "SUMMERDISCOUNT",
-      product: {
-        title: "Faded t-shirt",
-      },
-    },
-    {
-      createdAt: "2022-06-13",
-      destination: "product",
-      title: "My second QR code",
-      id: 2,
-      discountCode: "WINTERDISCOUNT",
-      product: {
-        title: "Cozy parka",
-      },
-    },
-    {
-      createdAt: "2022-06-13",
-      destination: "product",
-      title: "QR code for deleted product",
-      id: 3,
-      product: {
-        title: "Deleted product",
-      },
-    },
-  ];
+  /* useAppQuery wraps react-query and the App Bridge authenticatedFetch function */
+  const {
+    data: QRCodes,
+    isLoading,
+
+    /*
+      react-query provides stale-while-revalidate caching.
+      By passing isRefetching to Index Tables we can show stale data and a loading state.
+      Once the query refetches, IndexTable updates and the loading state is removed.
+      This ensures a performant UX.
+    */
+    isRefetching,
+  } = useAppQuery({
+    url: "/api/qrcodes",
+  });
+
   /* Set the QR codes to use in the list */
   const qrCodesMarkup = QRCodes?.length ? (
     <QRCodeIndex QRCodes={QRCodes} loading={isRefetching} />
@@ -59,16 +40,16 @@ export default function HomePage() {
 
   /* loadingMarkup uses the loading component from AppBridge and components from Polaris  */
   const loadingMarkup = isLoading ? (
-    <AlphaCard sectioned>
+    <Card sectioned>
       <Loading />
       <SkeletonBodyText />
-    </AlphaCard>
+    </Card>
   ) : null;
 
-  /* Use Polaris AlphaCard and EmptyState components to define the contents of the empty state */
+  /* Use Polaris Card and EmptyState components to define the contents of the empty state */
   const emptyStateMarkup =
     !isLoading && !QRCodes?.length ? (
-      <AlphaCard sectioned>
+      <Card sectioned>
         <EmptyState
           heading="Create unique QR codes for your product"
           action={{
@@ -81,7 +62,7 @@ export default function HomePage() {
             Allow customers to scan codes and buy products using their phones.
           </p>
         </EmptyState>
-      </AlphaCard>
+      </Card>
     ) : null;
 
   /*
