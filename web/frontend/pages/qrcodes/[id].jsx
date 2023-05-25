@@ -1,4 +1,4 @@
-import { Card, Page, Layout, SkeletonBodyText } from "@shopify/polaris";
+import { AlphaCard, Page, Layout, SkeletonBodyText } from "@shopify/polaris";
 import { Loading, TitleBar } from "@shopify/app-bridge-react";
 import { QRCodeForm } from "../../components";
 import { useParams } from "react-router-dom";
@@ -39,23 +39,23 @@ export default function QRCodeEdit() {
         <Loading />
         <Layout>
           <Layout.Section>
-            <Card sectioned title="Title">
+            <AlphaCard sectioned title="Title">
               <SkeletonBodyText />
-            </Card>
-            <Card title="Product">
-              <Card.Section>
+            </AlphaCard>
+            <AlphaCard title="Product">
+              <AlphaCard.Section>
                 <SkeletonBodyText lines={1} />
-              </Card.Section>
-              <Card.Section>
+              </AlphaCard.Section>
+              <AlphaCard.Section>
                 <SkeletonBodyText lines={3} />
-              </Card.Section>
-            </Card>
-            <Card sectioned title="Discount">
+              </AlphaCard.Section>
+            </AlphaCard>
+            <AlphaCard sectioned title="Discount">
               <SkeletonBodyText lines={2} />
-            </Card>
+            </AlphaCard>
           </Layout.Section>
           <Layout.Section secondary>
-            <Card sectioned title="QR code" />
+            <AlphaCard sectioned title="QR code" />
           </Layout.Section>
         </Layout>
       </Page>

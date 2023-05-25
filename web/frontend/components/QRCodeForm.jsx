@@ -10,8 +10,8 @@ import {
   Select,
   Thumbnail,
   Icon,
-  Stack,
-  TextStyle,
+  LegacyStack,
+  Text,
   Layout,
   EmptyState,
 } from "@shopify/polaris";
@@ -253,7 +253,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
 
   /* The form layout, created using Polaris and App Bridge components. */
   return (
-    <Stack vertical>
+    <LegacyStack vertical>
       {deletedProduct && (
         <Banner
           title="The product for this QR code no longer exists."
@@ -275,8 +275,8 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                 loading: submitting,
                 disabled: submitting,
               }}
-              discardAction={{
-                label: "Discard",
+              disAlphaCardAction={{
+                label: "DisAlphaCard",
                 onAction: reset,
                 loading: submitting,
                 disabled: submitting,
@@ -317,7 +317,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                     />
                   )}
                   {productId.value ? (
-                    <Stack alignment="center">
+                    <LegacyStack alignment="center">
                       {imageSrc || originalImageSrc ? (
                         <Thumbnail
                           source={imageSrc || originalImageSrc}
@@ -330,24 +330,20 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                           size="small"
                         />
                       )}
-                      <TextStyle variation="strong">
-                        {selectedProduct.title}
-                      </TextStyle>
-                    </Stack>
+                      <Text variation="strong">{selectedProduct.title}</Text>
+                    </LegacyStack>
                   ) : (
-                    <Stack vertical spacing="extraTight">
+                    <LegacyStack vertical spacing="extraTight">
                       <Button onClick={toggleResourcePicker}>
                         Select product
                       </Button>
                       {productId.error && (
-                        <Stack spacing="tight">
+                        <LegacyStack spacing="tight">
                           <Icon source={AlertMinor} color="critical" />
-                          <TextStyle variation="negative">
-                            {productId.error}
-                          </TextStyle>
-                        </Stack>
+                          <Text variation="negative">{productId.error}</Text>
+                        </LegacyStack>
                       )}
-                    </Stack>
+                    </LegacyStack>
                   )}
                 </Card.Section>
                 <Card.Section title="Scan Destination">
@@ -406,7 +402,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
                 <p>Your QR code will appear here after you save.</p>
               </EmptyState>
             )}
-            <Stack vertical>
+            <LegacyStack vertical>
               <Button
                 fullWidth
                 primary
@@ -423,7 +419,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
               >
                 Go to destination
               </Button>
-            </Stack>
+            </LegacyStack>
           </Card>
         </Layout.Section>
         <Layout.Section>
@@ -439,7 +435,7 @@ export function QRCodeForm({ QRCode: InitialQRCode }) {
           )}
         </Layout.Section>
       </Layout>
-    </Stack>
+    </LegacyStack>
   );
 }
 
